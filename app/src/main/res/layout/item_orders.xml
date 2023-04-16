@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/tour_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="5dp"
+            android:background="@drawable/bg_round_corner"
+            android:paddingHorizontal="15dp"
+            android:paddingVertical="20dp">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/img_card_view"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                app:cardCornerRadius="10dp">
+
+                <ImageView
+                    android:id="@+id/img_tour"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/bienho" />
+
+            </androidx.cardview.widget.CardView>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_toEndOf="@+id/img_card_view"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tour_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="3"
+                        android:fontFamily="@font/ubuntu"
+                        android:text="Biển Hồ"
+                        android:textColor="#FFFFFF"
+                        android:textSize="20dp" />
+
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:background="@drawable/rating_shape"
+                        android:paddingHorizontal="3dp"
+                        android:paddingVertical="3dp">
+
+                        <TextView
+                            android:id="@+id/rating"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:drawableEnd="@drawable/baseline_star_24"
+                            android:drawablePadding="5dp"
+                            android:text="4.9"
+                            android:textColor="#FFFFFF"
+                            android:textSize="16dp" />
+
+                    </FrameLayout>
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tour_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/baseline_calendar_month_24"
+                    android:drawablePadding="5dp"
+                    android:fontFamily="@font/ubuntu"
+                    android:gravity="center"
+                    android:paddingVertical="5dp"
+                    android:text="12 - 15/12/2023"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingVertical="5dp">
+
+                    <TextView
+                        android:id="@+id/tour_cost"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/baseline_attach_money_24"
+                        android:fontFamily="@font/ubuntu"
+                        android:gravity="center"
+                        android:text="1,5m/Ngày"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16dp" />
+
+                    <TextView
+                        android:id="@+id/tour_place"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:drawableStart="@drawable/baseline_place_24"
+                        android:drawablePadding="3dp"
+                        android:fontFamily="@font/ubuntu"
+                        android:gravity="center"
+                        android:text="Bình Thuận"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16dp" />
+
+                </LinearLayout>
+
+                <FrameLayout
+                    android:id="@+id/status_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/status_green"
+                    android:paddingHorizontal="5dp"
+                    android:paddingVertical="5dp">
+
+                    <TextView
+                        android:id="@+id/tour_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/ubuntu"
+                        android:gravity="center"
+                        android:text="Chờ xác nhận"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16dp" />
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/tour_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:paddingVertical="15dp"
+            android:paddingHorizontal="15dp"
+            android:orientation="vertical"
+            android:background="@drawable/expand_bg">
+
+            <TextView
+                android:id="@+id/details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="6dp"
+                android:text="Thông tin chi tiết:"
+                android:textColor="@color/text_color"
+                android:fontFamily="@font/ubuntu_bold"
+                android:textSize="16dp"/>
+
+            <!-- Info with image -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <!-- Info -->
+                <LinearLayout
+                    android:id="@+id/info_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <!-- Part 1 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingVertical="2dp">
+
+                        <TextView
+                            android:id="@+id/tour_id_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/ubuntu"
+                            android:text="Mã đơn: "
+                            android:textColor="@color/text_color"
+                            android:textSize="16dp" />
+
+                        <TextView
+                            android:id="@+id/tour_order_id"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="2dp"
+                            android:fontFamily="@font/ubuntu"
+                            android:text="ABCDEFGH1"
+                            android:textColor="@color/text_color"
+                            android:textSize="16dp" />
+
+                    </LinearLayout>
+
+                    <!-- Part 2 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingVertical="2dp">
+
+                        <TextView
+                            android:id="@+id/customer_name_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/ubuntu"
+                            android:text="Họ tên: "
+                            android:textColor="@color/text_color"
+                            android:textSize="16dp" />
+
+                        <TextView
+                            android:id="@+id/customer_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="2dp"
+                            android:fontFamily="@font/ubuntu"
+                            android:text="Sơn Tùng"
+                            android:textColor="@color/text_color"
+                            android:textSize="16dp" />
+
+                    </LinearLayout>
+
+                    <!-- Part 3 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingVertical="2dp">
+
+                        <TextView
+                            android:id="@+id/customer_phone_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/ubuntu"
+                            android:text="Số điện thoại: "
+                            android:textColor="@color/text_color"
+                            android:textSize="16dp" />
+
+                        <TextView
+                            android:id="@+id/customer_phone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="2dp"
+                            android:fontFamily="@font/ubuntu"
+                            android:text="0912345678"
+                            android:textColor="@color/text_color"
+                            android:textSize="16dp" />
+
+                    </LinearLayout>
+
+                    <!-- Part 4 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingVertical="2dp">
+
+                        <TextView
+                            android:id="@+id/email_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/ubuntu"
+                            android:text="Email: "
+                            android:textColor="@color/text_color"
+                            android:textSize="16dp" />
+
+                        <TextView
+                            android:id="@+id/email"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="2dp"
+                            android:fontFamily="@font/ubuntu"
+                            android:text="sontung@gmail.com"
+                            android:textColor="@color/text_color"
+                            android:textSize="16dp" />
+
+                    </LinearLayout>
+
+                    <!-- Part 5 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingVertical="2dp">
+
+                        <TextView
+                            android:id="@+id/quantity_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/ubuntu"
+                            android:text="Số người: "
+                            android:textColor="@color/text_color"
+                            android:textSize="16dp" />
+
+                        <TextView
+                            android:id="@+id/quantity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="2dp"
+                            android:fontFamily="@font/ubuntu"
+                            android:text="2"
+                            android:textColor="@color/text_color"
+                            android:textSize="16dp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:layout_marginEnd="10dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/info_image">
+
+                    <ImageView
+                        android:id="@+id/customer_img"
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/sontung" />
+
+                </androidx.cardview.widget.CardView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingVertical="2dp">
+
+                <TextView
+                    android:id="@+id/total_cost_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/ubuntu"
+                    android:text="Tổng tiền: "
+                    android:textColor="@color/text_color"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/total_cost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:fontFamily="@font/ubuntu"
+                    android:text="3.500.000 VNĐ"
+                    android:textColor="@color/text_color"
+                    android:textSize="16dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingVertical="2dp">
+
+                <TextView
+                    android:id="@+id/note_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/ubuntu"
+                    android:text="Ghi chú: "
+                    android:textColor="@color/text_color"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/note"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:fontFamily="@font/ubuntu"
+                    android:text=".........."
+                    android:textColor="@color/text_color"
+                    android:textSize="16dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingVertical="2dp">
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="7dp"
+                    android:paddingHorizontal="8dp"
+                    android:background="@drawable/status_gold">
+
+                    <TextView
+                        android:id="@+id/btn_accept"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/ubuntu"
+                        android:text="Xác nhận"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16dp"/>
+
+                </FrameLayout>
+
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="7dp"
+                    android:paddingHorizontal="14dp"
+                    android:layout_marginStart="70dp"
+                    android:background="@drawable/status_red">
+
+                    <TextView
+                        android:id="@+id/btn_decine"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/ubuntu"
+                        android:text="Từ chối"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16dp" />
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
