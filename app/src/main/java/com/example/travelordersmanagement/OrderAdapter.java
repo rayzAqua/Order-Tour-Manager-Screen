@@ -69,6 +69,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderHolderV
         holder.totalCost.setText(tourOrder.getTotalCost());
         holder.note.setText(tourOrder.getNote());
 
+        // Xử lý hiển thị của các nút thao tác trên thành phần giao diện dựa vào thuộc tính
+        // status của TourOrder
         if (tourOrder.getStatus().contains("Chờ xác nhận")) {
             Drawable drawable = ContextCompat.getDrawable(mContext, R.drawable.status_green);
             holder.background.setBackground(drawable);
@@ -134,18 +136,21 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderHolderV
             mainPanel = itemView.findViewById(R.id.tour_container);
             expandPanel = itemView.findViewById(R.id.tour_details);
 
-            // Bắt sự kiện click chuột
+            // Thiết lập sự kiện click chuột - để mở tắt phần chi tiết hoá đơn.
             mainPanel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     // Lấy vị trí của adapter được click
                     // Mỗi adapter đại diện cho một đối tượng dữ liệu được vẽ lên giao diện
+                    // Trả về mẫu dữ liệu từ chỉ số vị trí của Adapter được click.
                     TourOrder tourOrder = dataList.get(getAdapterPosition());
-                    // Gọi phương thức setExpandable của tourOrder và lấy not của giá trị trả về
-                    // của phương thức getExpandable
+                    // Sau khi có được dữ liệu của Adapter được click. Gọi đến phương thức
+                    // setExpandable của tourOrder và lấy not giá trị
+                    // trả về của phương thức getExpandable
                     tourOrder.setExpandable(!tourOrder.isExpandable());
-                    // Thông báo sự thay đổi của dữ liệu tại vị trí được chọn và yêu cầu RecyvleView
-                    // cập nhật lại. Nó sẽ gọi đến hàm onBindViewHolder để cập nhật lại dữ liệu.
+                    // Thông báo sự thay đổi của dữ liệu tại vị trí được chọn
+                    // và yêu cầu RecycleView cập nhật lại. Lúc này, nó sẽ gọi đến
+                    // hàm onBindViewHolder để cập nhật lại dữ liệu của Adapter được click.
                     notifyItemChanged(getAdapterPosition());
                 }
             });
