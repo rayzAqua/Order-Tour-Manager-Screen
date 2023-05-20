@@ -1,5 +1,6 @@
 package com.example.travelordersmanagement;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,6 +15,13 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -26,14 +34,19 @@ public class MainActivity extends AppCompatActivity {
     private SearchView searchView;
     private Spinner dropdown;
     private String [] items = {"Tất cả", "Xác nhận", "Thanh toán", "Chờ hoàn thành"};
+    List<TourOrder> dataList = new ArrayList<>();
+    DatabaseReference database;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Trở về
         backButton = findViewById(R.id.back_btn);
 
+        // Tìm kiếm
         searchView = findViewById(R.id.searchView);
         searchView.clearFocus();
         // Thiết lập sự kiện tương tác với thanh tìm kiếm
@@ -44,33 +57,50 @@ public class MainActivity extends AppCompatActivity {
                 filterList(query);
                 return true;
             }
-
             // Xử lý khi có sự thay đổi text trên thanh tìm kiếm
             @Override
             public boolean onQueryTextChange(String newText) {
                 filterList(newText);
                 return true;
             }
-
         });
 
+        // RecycleView
         // Ánh xạ list_order_view với thành phần giao diện list_order
         list_order_view = findViewById(R.id.list_order);
+        // Hiển thị RecycleView theo chiều dọc
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
+        list_order_view.setLayoutManager(linearLayoutManager);
         // Tạo mới một đối tượng OrderAdapter và cho phép truy cập dữ liệu, giao diện
         // từ môi trường này.
         orderAdapter = new OrderAdapter(this);
 
-        // Hiển thị RecycleView theo chiều dọc
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
-        list_order_view.setLayoutManager(linearLayoutManager);
+        // Kết nối đến Firebase lấy cái node con từ node cha datas
+        database = FirebaseDatabase.getInstance().getReference("datas");
+        // Lấy dữ liệu Firebase
+        database.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                dataList.clear();
+                for (DataSnapshot childSnapshot : snapshot.getChildren()) {
+                    TourOrder tourOrder = childSnapshot.getValue(TourOrder.class);
+                    dataList.add(tourOrder);
+                }
+                // Gọi đến phương thức setData để lưu dữ liệu lấy được từ getDataList()
+                // vào thuộc tính TourOrder của OrderAdapter
+                orderAdapter.setData(dataList);
+                // Sau khi lưu dữ liệu, đặt Adapter là orderAdapter cho RecyleView list_order_view để
+                // định dạng cách hiển thị dữ liệu.
+                list_order_view.setAdapter(orderAdapter);
+            }
 
-        // Gọi đến phương thức setData để lưu dữ liệu lấy được từ getDataList()
-        // vào thuộc tính TourOrder của OrderAdapter
-        orderAdapter.setData(getDataList());
-        // Sau khi lưu dữ liệu, đặt Adapter là orderAdapter cho RecyleView list_order_view để
-        // định dạng cách hiển thị dữ liệu.
-        list_order_view.setAdapter(orderAdapter);
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
+
+        // Dropdown
         // Ánh xạ dropdown với thành phần giao diện dropdown
         dropdown = findViewById(R.id.dropdown);
         // Tạo ra một stringApdapter để đặt kiểu hiển thị cho dữ liệu của dropdown
@@ -80,7 +110,6 @@ public class MainActivity extends AppCompatActivity {
         dropDownAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Đặt Adapter là dropDownAdapter cho dropdown
         dropdown.setAdapter(dropDownAdapter);
-
         // Sự kiện chọn mục của dropdown
         dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -92,7 +121,6 @@ public class MainActivity extends AppCompatActivity {
                 // Nếu là "Tất cả" thì không có sự thay đổi về DataList
                 if (value.equals("Tất cả")) {
                     orderAdapter.setData(getDataList());
-
                 }
                 // Nếu là các lựa chọn khác thì truyền các lựa chọn đó vào hàm
                 // filterListByStatus() để lấy về danh sách dữ liệu mới.
@@ -100,7 +128,6 @@ public class MainActivity extends AppCompatActivity {
                     filterListByStatus(value);
                 }
             }
-
             // Khi không có lựa chọn mục nào từ dropdown thì mặc định hiển thị "Tất cả"
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
@@ -119,19 +146,22 @@ public class MainActivity extends AppCompatActivity {
 
     // Hàm getDataList được dùng để lấy dữ liệu.
     private List<TourOrder> getDataList () {
+        database = FirebaseDatabase.getInstance().getReference("datas");
 
-        List<TourOrder> dataList = new ArrayList<>();
+        database.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                dataList.clear();
+                for (DataSnapshot childSnapshot : snapshot.getChildren()) {
+                    TourOrder tourOrder = childSnapshot.getValue(TourOrder.class);
+                    dataList.add(tourOrder);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-        dataList.add(new TourOrder(R.drawable.bienho, "Biển Hồ", "4.9", "12 - 15/04/2023", "1,5m/Ngày", "Gia Lai", "Chờ xác nhận",
-                            "ABCDEF1", "Sơn Tùng", R.drawable.sontung, "0912345678", "sontung@gmail.com", "2", "3.500.000 VNĐ", ".........."));
-        dataList.add(new TourOrder(R.drawable.bienhoche, "Biển Hồ Chè", "4.8", "10 - 12/04/2023", "1,4m/Ngày", "Gia Lai", "Chờ thanh toán",
-                            "ABCDEF2", "Chipu", R.drawable.chipu, "0912345778", "chipu@gmail.com", "2", "2.500.000 VNĐ", ".........."));
-        dataList.add(new TourOrder(R.drawable.dalat, "Đà Lạt", "4.5", "15 - 17/04/2023", "2,5m/Ngày", "Lâm Đồng", "Chờ hoàn thành",
-                            "ABCDEF3", "Hào quang rực rỡ", R.drawable.tranthanh, "0912365778", "haoquangrucro@gmail.com", "3", "4.500.000 VNĐ", "Khách cần sự riêng tư"));
-        dataList.add(new TourOrder(R.drawable.doicat, "Đồi Cát", "4.9", "19 - 21/04/2023", "1,2m/Ngày", "Bình Thuận", "Chờ thanh toán",
-                            "ABCDEF4", "Vùng đất cấm", R.drawable.dvh, "0912345378", "privateArea@gmail.com", "1", "6.500.000 VNĐ", "Vùng đất cấm"));
-        dataList.add(new TourOrder(R.drawable.vungtau, "Vũng Tàu", "4.7", "16 - 23/04/2023", "3,5m/Ngày", "Vũng Tàu", "Chờ xác nhận",
-                            "ABCDEF5", "Linh14", R.drawable.hoailinh, "0932385378", "vuanuoclu@gmail.com", "2", "1.400.000 VNĐ", "Khách rất thích nước"));
+            }
+        });
 
         return dataList;
     }
@@ -141,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
         // Tạo ra một list mới có kiểu là TourOrder
         List<TourOrder> filterList = new ArrayList<>();
         // Duyệt qua từng phần tử của ListData được lấy từ getDataList()
-        for (TourOrder item : getDataList()) {
+        for (TourOrder item : dataList) {
             // Kiểm tra xem với mỗi item thì thuộc tính tourName của item đó có chứa
             // cụm từ/từ được nhập vào ô tìm kiếm không.
             // Nếu kết quả là có thì thêm item đó vào filterList
@@ -167,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
         // Biến text sẽ chứa chuỗi được lấy từ thuộc tính "status" của TourOrder.
         List<TourOrder> filterListByStatus = new ArrayList<>();
         // Duyệt qua từng phần tử của ListData được lấy từ getDataList()
-        for (TourOrder item : getDataList()) {
+        for (TourOrder item : dataList) {
             // Kiểm tra xem với mỗi item thì thuộc tính status có chứa giá trị
             // trạng thái như biến text không. Nếu có thì thêm item đó vào filterListByStatus
             if (item.getStatus().toLowerCase().contains(text.toLowerCase())) {

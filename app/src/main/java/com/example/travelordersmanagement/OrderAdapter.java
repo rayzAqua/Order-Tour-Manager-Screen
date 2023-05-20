@@ -15,6 +15,9 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderHolderView>{
@@ -51,7 +54,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderHolderV
         }
 
         // Main Panel
-        holder.img_tour.setImageResource(tourOrder.getResourceId());
+//        holder.img_tour.setImageResource(tourOrder.getResourceId());
+        Picasso.get().load(tourOrder.getTourImage()).into(holder.img_tour);
+
         holder.tour_name.setText(tourOrder.getTourName());
         holder.rating.setText(tourOrder.getRating());
         holder.tour_date.setText(tourOrder.getDate());
@@ -61,7 +66,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderHolderV
 
         // Expand Panel
         holder.tour_id.setText(tourOrder.getTourId());
-        holder.customer_img.setImageResource(tourOrder.getCustomerImg());
+//        holder.customer_img.setImageResource(tourOrder.getCustomerImg());
+        Picasso.get().load(tourOrder.getCustomerImg()).into(holder.customer_img);
+
         holder.customer_name.setText(tourOrder.getCustomer_name());
         holder.phoneNumber.setText(tourOrder.getPhoneNumber());
         holder.email.setText(tourOrder.getEmail());

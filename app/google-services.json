@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1026792720481",
+    "project_id": "durable-binder-365215",
+    "storage_bucket": "durable-binder-365215.appspot.com",
+    "firebase_url": "https://durable-binder-365215-default-rtdb.asia-southeast1.firebasedatabase.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1026792720481:android:c39af22879063403940220",
+        "android_client_info": {
+          "package_name": "com.example.travelordersmanagement"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1026792720481-bpnsbbs08vid52mkesqeka51sjl6b0dk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBk95t3gZznj0wEZTwgSUEnGh7FHgzUnsI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1026792720481-bpnsbbs08vid52mkesqeka51sjl6b0dk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

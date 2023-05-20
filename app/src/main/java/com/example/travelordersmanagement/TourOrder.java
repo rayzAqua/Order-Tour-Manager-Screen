@@ -2,7 +2,7 @@ package com.example.travelordersmanagement;
 
 public class TourOrder {
     // Main panel
-    private int resourceId;
+    private String tourImage;
     private String tourName;
     private String rating;
     private String date;
@@ -14,18 +14,19 @@ public class TourOrder {
     private boolean expandable;
     private String tourId;
     private String customer_name;
-    private int customerImg;
+    private String customerImg;
     private String phoneNumber;
     private String email;
     private String peoples;
     private String totalCost;
     private String note;
-
-    public TourOrder(int resourceId, String tourName, String rating, String date,
+    TourOrder() {
+    }
+    public TourOrder(String tourImage, String tourName, String rating, String date,
                      String cost, String place, String status, String tourId,
-                     String customer_name, int customerImg, String phoneNumber,
+                     String customer_name, String customerImg, String phoneNumber,
                      String email, String peoples, String totalCost, String note) {
-        this.resourceId = resourceId;
+        this.tourImage = tourImage;
         this.tourName = tourName;
         this.rating = rating;
         this.date = date;
@@ -44,8 +45,8 @@ public class TourOrder {
         this.note = note;
     }
 
-    public int getResourceId() {
-        return resourceId;
+    public String getTourImage() {
+        return tourImage;
     }
 
     public String getTourName() {
@@ -84,7 +85,7 @@ public class TourOrder {
         return customer_name;
     }
 
-    public int getCustomerImg() {
+    public String getCustomerImg() {
         return customerImg;
     }
 
@@ -108,8 +109,8 @@ public class TourOrder {
         return note;
     }
 
-    public void setResourceId(int resourceId) {
-        this.resourceId = resourceId;
+    public void setResourceId(String tourImage) {
+        this.tourImage = tourImage;
     }
 
     public void setTourName(String tourName) {
@@ -148,7 +149,7 @@ public class TourOrder {
         this.customer_name = customer_name;
     }
 
-    public void setCustomerImg(int customerImg) {
+    public void setCustomerImg(String customerImg) {
         this.customerImg = customerImg;
     }
 
